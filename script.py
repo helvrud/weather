@@ -85,7 +85,8 @@ def export_db():
         for row in weather_data_array:
             row_as_dict = dbrow_to_dict(row)
             # pprint(row_as_dict)
-            weather_df = weather_df.append(row_as_dict, ignore_index = True)
+            # weather_df = weather_df.append(row_as_dict, ignore_index = True) # for pandas version < 2.0.
+            weather_df = pd.concat([weather_df, pd.DataFrame(row_as_dict, index=[0])]) # for pandas version > 2.0.
         # pprint(weather_df)
         weather_df.to_excel(excel_file_name, index=False)
 
